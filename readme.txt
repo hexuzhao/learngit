@@ -1,1 +1,2 @@
-student new 
+student new .
+Git is free software.
