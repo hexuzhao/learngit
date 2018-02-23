@@ -1,4 +1,4 @@
-day07
+day07   
 =========================
 1、HttpServletResponse(续)
    setCharacterEncoding();设置响应内容的编码

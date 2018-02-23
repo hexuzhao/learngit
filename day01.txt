@@ -61,7 +61,7 @@ Java Web
 	      jdbc:mysql:主协议
 	      //ip:port/dbname：子协议
 	      url添加参数  useSSL=true;
-	3、创建语句对象
+	3、创建语句对象   
 	   Statement 语句对象
 	      创建 conn.createStatement();
 	    int executeUpdate(String sql);发送增删改语句
