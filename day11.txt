@@ -1,0 +1,62 @@
+day11
+======================
+1、AJAX
+   Asynchronous 
+     浏览器向服务器发送请求 
+     异步请求     
+     增强用户体验
+     降低页面的重复加载次数
+   Asynchronous JavaScript And Xml
+   AJAX核心即为浏览器向服务器发送异步请求
+   JavaScript中提供XMLHttpRequest对象，该对象
+     即是用来发送异步请求
+   XMLHttpRequest对象是AJAX核心
+   jQuery:JS函数库 简化JS开发 ajax框架
+   Fat Client 富客户单
+   
+2、XMLHttpRequest
+   IE6.0版本和之前的版本
+   * 创建
+     var xhr = new XMLHttpRequest();
+   * 初始化连接
+     open("GET","url",true);
+   * 发送请求
+     send(data);
+        如果是get请求:send(null);
+        如果是post请求:send("id=1001&name=aaa");
+     
+   XMLHttpRequest该对象在不同的阶段具备不同的状态
+     使用0-4描述该对象的状态
+   0:创建之后  new之后
+   1:连接初始化之后 调用open()函数之后
+   2:发送请求之后，服务器接收到请求
+   3:服务器正在处理请求
+   4:当服务器将结果响应到浏览器
+   
+   XMLHttpRequest该对象具备一个特殊的事件
+     状态改变的事件
+   onreadystatechange
+   
+3、独立实现发送post请求
+   open("POST","url",true);
+     发送数据，必须设置一个请求头
+   xhr.setRequestHeader
+   ("Content-type",
+   "application/x-www-form-urlencoded");
+   send("username="+username);
+4、下午不讲新内容，作业如下：
+   * 独立实现AJAX GET请求
+   * 独立实现AJAX POST请求
+   * 使用原生AJAX验证注册账号是否存在    
+   
+   
+   
+   
+   
+   
+   
+       
+   
+   
+  
+  

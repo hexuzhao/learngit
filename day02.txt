@@ -1,0 +1,124 @@
+day02
+=====================
+1、作业
+作业：
+  * demo01-demo05
+  * 独立实现工具类
+  * demo01-demo05使用工具类    
+  * 扩展模拟实现数据库版本注册（保存）和登录（查询） 
+  
+  java应用程序模拟界面
+  java程序接收控制台的输入
+  java程序将接收到的数据通过JDBC持久化到数据库
+  
+2、设计实体类，在JDBC中使用
+   * 设计实体类
+         定义一组private属性
+         （username,password,phone,email）
+         生成对应这些属性的setter和getter
+         生成有参和无参构造器 
+   * 创建生成界面的方法 showRegistPage();
+         调用save()方法
+   * 创建实现数据保存的方法 int save(User user);
+   * main()方法中调用showRegistPage()
+    	           
+3、PreparedStatement接口
+   SQL注入现象
+     由于用户的输入改变了SQL语句的本意，SQL注入
+   String sql 
+   = "SELECT * FROM ajia_user "
+   + "WHERE username='"+username+"' "
+   + "and password='"+password+"'";   
+   username = 李连杰
+   password = abc' or 'a'='a   
+     
+     结论：只要SQL语句中有变量就
+     使用PreparedStatement接口    
+     
+     处理SQL注入现象
+   PreparedStatement,是Statement的子接口
+   
+   * 使用该对象发送的SQL，如果有变量
+     SELECT * FROM ajia_user
+     WHERE username=? AND password=?;     
+     DELETE FROM ajia_user WHERE id=?;
+     UPDATE ajia_user SET password=? 
+     WHERE username=?;
+     INSERT INTO ajia_user
+     (username,pssword,phone,email)
+     VALUES(?,?,?,?);
+    * 实例化
+      conn.prepareStatement(sql);
+    * 装载占位符的值
+      setXXX(int index,value);
+      setString(1,"");
+      setDouble(2,30.3);
+      .....
+      setObject(3,);
+    * 执行SQL
+      int executeUpdate();
+      ResultSet executeQuery();   
+  PreparedStatement特点：
+  * SQL语句的可读性更高
+  * 会避免SQL注入
+  * 当出现多次执行同一条SQL语句功能，
+    SQL语句中有变量参与
+       操作PreparedStatement效率高  
+    DriverManager
+    Connection
+    Statement
+    PreparedStatement
+    ResultSet  
+    
+4、连接池  线程池 池化技术   
+     连接池组件:DBCP,C3P0 
+   DBCP:DataBase Connection Pool
+   BasicDataSource:核心类
+     重构JdbcUtil
+     CRUD->JdbcUtil->连接池
+    
+5、将连接池的连接信息配置到属性文件中
+   * 创建属性文件  以.properties为后缀的文本文件
+   * 属性文件中保存信息
+     key=value
+     driverClass=com.mysql.jdbc.Driver
+     url=jdbc:mysql://localhost:3306/ums?useSSL=true    
+   * 解析属性文件    
+     Properties
+     load();
+     String url = getProperty("url");
+     
+     Hashtable 线程安全 同步方法  synchronized put()
+     HashMap   非线程安全 put()
+       map.put("key",value);
+       map.get("key");
+     StringBuffer
+     StringBuilder     
+     Vector
+     ArrayList
+     
+     总结：
+     * 实体类
+     * PreparedStatement
+            使用方法：
+          sql语句 ？占位符
+                  实例化即处理SQL  
+            conn = prepareStatement(sql);
+                  装在占位符值
+            pstmt.setXXX(1,value);
+                  执行
+            executeUpdate();
+            executeQuery();
+     * 避免sql注入，效率高（条件？），SQL语句可读性更好
+     * 连接池，解析属性文件
+     
+6、作业：
+	  * 实体类
+      * 预习购物车JDBC操作（ajia_cart_item）
+    
+    
+    
+    
+    
+      
+

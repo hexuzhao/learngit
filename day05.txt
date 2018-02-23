@@ -1,0 +1,179 @@
+java05
+========================
+Servlet/JSP
+
+需求：用户在浏览器输入个人信息，注册到系统中
+
+1、几个概念
+   * java项目的演变过程
+        单机项目
+        基于网络功能   网络编程  
+        java开发客户端（界面，访问服务器端） Client
+        java开发服务端 Server
+     C/S模式  QQ
+     
+     B/S模式  Browser/Server
+     Web项目  
+     web1.0 只能看  提供静态资源
+     web2.0 动态内容
+     web3.0 提高用户体验（HTML5，CSS3，....）     
+     java 
+       J2SE J2EE J2ME       
+       javaSE(Standard Edition):java语法，java核心API，界面
+       javaEE(Enterprise Edition):解决方案 标准 规范
+         JDBC、Servlet/JSP.......
+       javaME   
+   * 服务器
+         硬件：
+         软件：java网络编程  服务端
+         应用服务器，软件程序，实现客户端与应用之间的交互
+         实现了客户端与服务端之间交互的细节     
+     C/S
+       java客户端    java服务器端   java项目
+     B/S模式
+       Browser：ip:port 应用服务器  项目       
+         应用服务器（软件）
+         tomcat jetty  Servlet/JSP规范
+         weblogic jBoss ...
+     web容器 
+               容器   组件    
+   * web项目   web容器
+      * eclipse中创建web项目
+        * new dynamic web project
+        * WebContent目录中开发页面
+      * 安装应用服务器（web容器） tomcat
+        * 解压 直接解压到根路径中
+        * 环境搭建
+                 系统环境变量中添加
+          JAVA_HOME:JDK路径
+        * 启动服务器        
+      * 将web项目部署（发布）到web容器中
+         helloWeb
+            -css,js,html
+            -WEB-INF
+               -classes
+               -lib                
+      * eclipse集成tomcat,并发布访问           
+      * 通过浏览器访问web项目        
+        http://localhost:8080/helloWeb/login.html
+        192.168.146.1
+        http://192.168.146.1:8080/helloWeb/login.html
+              角色：程序员  服务端   客户端   
+        http://localhost:8080/helloWeb/login.html
+              浏览器：www.jd.com->域名服务器              
+        www.abc.com
+        www.jd.com=ip:8080/jd/index.html
+        URL:请求路径
+        http://localhost:8080/helloWeb/login.html
+        URI:请求资源路径
+        /helloWeb/login.html
+        
+        http://localhost:8080/day05_servlet01/web/index.html
+        
+     * HTTP 协议
+     * TCP  协议
+     
+        http://localhost:8080协议名和服务器信息
+              浏览器与服务器建立一个连接
+              基于TCP协议建立连接      
+        TCP协议：基于连接的协议
+              三次握手
+        HTTP协议：数据传输协议 应用层协议
+              规定了数据的格式 规定了浏览器与服务器连接的方式（基于TCP协议）
+        * 规定了请求数据包和响应数据包的格式
+                  请求数据包
+                  三部分
+            1）、请求行
+            2）、若干消息头
+            3）、请求体，当请求方式为post，请求参数
+                              会在请求体中 
+            <form method="post">
+                  响应数据包 
+            1）、响应的状态行
+            2）、若干响应消息头
+            3）、响应体
+                  状态行，状态码 304 200
+              404：资源不存在（路径错误） 
+              500：服务器内部错误（JAVA程序出现异常）
+                  
+        * 规定了浏览器与服务器的交互方式
+          1）浏览器与服务器建立连接
+          2）浏览器向服务器发送请求
+          3）服务器接收到请求，根据请求资源路径，
+                       查找对应的资源服务器将资源内容发送给浏览器
+          4）浏览器与服务器自动断开连接        
+                  短连接，一次请求一个连接         
+        
+       需求：浏览器发送数据到服务器
+       1、浏览器与服务器建立连接
+       2、浏览器将数据打包 形成请求数据包
+       3、发送数据到服务器       
+       4、服务器接收到请求，查找对应的资源
+       5、服务器将响应数据打包 形成响应数据包
+       6、服务器将响应数据包响应到浏览器
+       7、断开连接        
+            表单提交数据提交方式GET和POST的区别
+       1）、GET提交，数据在浏览器地址栏会显示
+            POST提交，数据在浏览器地址栏不会显示
+       2）、GET提交数据的字节数有限制 2K左右
+            POST提交数据的字节数理论上没限制
+       3）、GET提交数据，数据在请求数据包中的请求行  
+            POST提交数据，数据在请求数据包中的请求体        
+            
+2、Servlet
+     扩展服务器功能的组件规范
+     该组件规范可以接收请求，
+     处理请求，
+     返回响应内容     
+   Servlet的开发步骤:
+   * 创建类继承HttpServlet
+   * 重写service()方法
+   * 注册servlet到tomcat中 web.xml中配置
+   
+   需求：浏览器发送数据到java程序
+       1、浏览器与服务器建立连接
+       2、浏览器将数据打包 形成请求数据包
+       3、发送数据到服务器 
+       4、服务器接收到请求，创建request,response
+                  对象，将请求数据封装到request对象中
+       5、根据请求资源路径，匹配web.xml中servlet
+       6、创建该servlet对象，
+                 调用service(request,response)方法
+       7、服务器将response中的数据打包 形成响应数据包
+       8、服务器将响应数据包响应到浏览器
+       9、断开连接
+    结论：接收请求，处理请求，响应结果在service()方法中
+       通过request对象获取请求，response对象响应结果
+总结：
+  1、几个概念
+     C/S->B/S
+     Http协议
+     TCP协议
+  2、服务器  web项目
+  3、HelloWorldServlet 开发步骤
+        注册servlet(web.xml)
+  4、独立实现数据库版的注册
+  
+
+  
+  
+   
+   
+               
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        
+        
+        
+                
+              
+              
+             

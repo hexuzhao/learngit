@@ -1,0 +1,36 @@
+day04
+===================
+阿甲学子商城JDBC
+1、账号管理模块
+2、购物车模块
+   * 添加购物车
+   * 查看登录用户的购物车信息
+   * 删除一条购物车信息  修改状态
+   * 删除多条购物车信息  修改多条数据状态
+   * 修改购物车中商品的数量
+   
+  设计实体   
+     购物车实体
+     商品实体
+     
+   * 添加购物车
+     public void save(CartItem cartItem);
+     public CartItem findByUserIdItemId(Long userid,Long itemId);
+     public void updateNum(CartItem cartItem); 
+   
+   * 查看登录用户的购物车信息
+        显示登录用户未删除状态的购物车信息
+     SELECT aci.id,ai.image,ai.title,ai.price,aci.num     
+     FROM ajia_cart_item aci,ajia_item ai
+     WHERE aci.item_id=ai.id
+     AND aci.status=1
+     AND aci.user_id=?
+     
+3、独立实现地址管理 
+     
+     
+     
+     
+   
+   
+   

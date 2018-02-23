@@ -1,0 +1,94 @@
+day09
+===============================
+1、EL
+   Expression Language 表达式语言
+   ${}
+     简化JSP开发 替换JSP中部分java代码 
+     展现变量 表达式 处理实体
+   page指令中 isELIgnored="false" 
+   JSP引擎是否忽略EL表达式
+  * 获取属性(attribute)  
+   Servlet查数据，绑定request数据  添加属性
+     转发给JSP
+   List<User> list.... 
+   request.setAttribute("userList",list);
+     转发到JSP
+   List<User> list 
+   =(List<User>) request.getAttribute("userList");
+      
+   out.print(user.getName());
+   
+   pageContext.setAttribute("",value);
+   request.setAttribute("",value);
+   a.jsp->b.do->c.do->d.jsp 转发实现跳转一个请求
+   session.setAttribute("",value);
+     超链接->看到结果
+     提交表单->看到结果
+   servletContext.setAttribute("",value);
+   JSP中4种Scope   域对象
+   pageContext
+   request
+   session
+   application  obj   
+   ${userList}
+   ${obj}
+     如果没有查找到对应属性返回""空字符串而不是null
+   
+   EL中内置对象
+	     获取域对象中的属性
+	   pageScope
+	   requestScope
+	   sessionScope
+	   applicationScope
+		   ${applicationScope.obj}
+		   ${obj}
+	     获取请求参数
+	   param 获取请求参数
+	   ${param.name}
+	     
+   * 获取实体对象属性
+   * EL中的运算符
+     + - * / % mode empty gt lt...
+     
+2、JSTL
+   JavaServer Pages Standard Tag Library 
+     多个JSP页面中，需要重复展现页面中的内容
+   C标签
+   * 自定义标签原理
+     tld文件，JSP标签描述符文件
+         类
+         标签  <c:if>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" 
+     prefix="c" %>
+   * JSTL常用标签
+     <c:out>
+     <c:if>
+     <c:choose>
+       <c:when>
+       <c:otherwise>
+     <c:choose>
+     <c:foreach>
+       
+3、项目中路径的处理
+          
+   html路径   表单  超链接  js
+   web.xml   /save.do 
+   servlet:重定向  转发
+     绝对路径: 以/开头即为绝对路径
+     相对路径: 不以/开头即为相对路径
+     使用绝对路径一定不会出现404
+   java web项目中"/"的含义
+   html路径 
+     "/" 表示http://localhost:8080 服务器的根
+     /项目名/资源名
+   web.xml
+     "/" 表示 http://localhost:8080/项目名/ 
+     /项目名/save.do 
+   servlet:
+     重定向
+     "/" 表示http://localhost:8080 服务器的根  
+     转发
+	 "/" 表示 http://localhost:8080/项目名/
+   jsp/demo01.jsp   demp02.jsp  demo03.jsp
+   /demo01.do
+   demo01.jsp->demo01.do->demo02.jsp->demo03.jsp

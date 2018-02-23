@@ -1,0 +1,107 @@
+day03
+========================
+1、JDBC中的事务处理
+    事务：一组操作的逻辑单元称为事务
+    事务四大特点（ACID）：    
+    * 原子性（Atomicity） 
+           一个事务中所有的操作是一个整体不可分割，
+           要么都成功要么都失败
+    * 一致性（Consistency）
+          事务执行前后数据的状态（例如数据的完整性）保持一致
+    * 隔离性(Isolation）
+          多个事务并发执行，事务之间是隔离的，互不影响
+	          与数据库的隔离级别有关
+	          串行化：多个事务必须排队执行，最高隔离级别
+	          读已提交：
+	          读未提交：    
+    * 持久性(Durability):事务提交之后对数据库的影响
+          是永久的
+    
+     操作事务：
+    * 开起一个事务 自动开起  
+    * 提交事务  commit;
+    * 撤销事务  rollback;     
+  
+  JDBC的事务处理
+  Connection 接口中提供API
+  boolean getAutoCommit();获取默认自动提交方式
+  void setAutoCommit();设置自动提交方式
+  void commit();提交事务
+  void rollback();回滚事务
+    
+    转账业务：
+    操作账号表 将账号1的余额减少，将账号2
+    的余额增加    
+    update t_account 
+    set balance=balance-2000 where id=1002;
+    update t_account 
+    set balance=balance+2000 where id=1001;    
+       
+  JDBC的事务处理，一组更新操作需要关注事务处理
+      
+2、JDBC中批处理
+     更新多条记录，批量保存，批量删除
+   PreparedStatement      
+   insert(?,?,?)
+   insert
+   insert
+   for(1000){
+   	pstmt.set....
+   	添加到语句列表
+   }
+     直接一次性执行整个语句列表
+   Statement
+   PreparedStatement
+     语句列表
+
+3、实现ajia_store JDBC操作
+   * 用户模块功能分析
+     1、注册                          -insert
+     2、登录                          -select
+     3、修改密码                    -update
+     4、显示登录用户的信息   -select
+     5、验证原密码                -select   
+   * 设计实体（依赖数据库表）
+   * 工具类
+   * 设计JDBC操作的类和方法
+   * 测试
+   
+   * 设计实体（依赖数据库表） 传值
+     com.ajiatech.ajia_store.entity
+     com.ajiatech.ajia_store.pojo
+     com.ajiatech.ajia_store.po
+     com.ajiatech.ajia_store.vo
+         实体类
+         * 一组private 属性
+         * 一组setter和getter
+         * 实现Serialiazble接口 可序列化接口
+         * 一组构造函数
+         * 重写hashCode(),equals(),toString() 
+         
+   * 操作用户模块JDBC类  DAO
+     UserDaoImpl
+     DAO:Data Access Object     
+     JdbcUtil
+     BaseDao
+     UserDaoImpl     
+     作业，独立实现：
+     * 用户登录
+     * 用户注册
+     * 验证账号是否存在
+     * 修改密码    
+     * 更新账号邮箱，电话
+           
+
+    
+
+
+
+
+
+
+       
+    
+    
+    
+      
+

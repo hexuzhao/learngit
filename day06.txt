@@ -1,0 +1,120 @@
+java06
+============================
+1、作业 独立实现数据库版的注册
+2、发布项目到tomcat真实路径
+     在eclipse中修改
+   Tomcat v7.0 Server at localhost
+
+3、Servlet核心API
+   Servlet接口
+   GenericServlet 抽象类 实现了Servlet接口
+   HttpServlet 抽象类 继承GenericServlet   
+   public abstract class GenericServlet 
+   implements Servlet, 
+   ServletConfig, 
+   Serializable{}    
+   public abstract class HttpServlet 
+   extends GenericServlet{}
+   HelloServlet extends HttpServlet{}
+4、Tomcat如何管理Servlet 
+   1)、Servlet的生命周期
+	   * 默认当Servlet第一次接收到请求，
+	        服务器会实例化该servlet，只实例化一次
+	   * Servlet自动会被初始化 
+	         服务器自动调用init()方法  只初始化一次
+	   * 只要有请求，servlet会立即提供服务 
+	         服务器自动调用service()方法
+	   * servlet实例一段时间不被访问，容器关闭
+	     Servlet实例会自动被销毁 销毁之前
+	         服务器自动调用destroy()方法 
+   2)、     
+         调用service()方法之前，执行解析配置文件
+         在配置servlet中，添加<load-on-startup>配置项
+   
+   3)、获取初始化参数   
+     ServletConfig 保存servlet的相关配置信息
+         直接由容器管理
+
+  public abstract interface Servlet {
+  //初始化方法  实例化连接等
+  public abstract void init(javax.servlet.ServletConfig arg0) throws javax.servlet.ServletException;
+  public abstract javax.servlet.ServletConfig getServletConfig();
+  //提供服务 业务功能的实现
+  public abstract void service
+  (ServletRequest arg0, 
+  ServletResponse arg1) 
+  throws ServletException, IOException;
+  public abstract java.lang.String getServletInfo();
+  //当servlet对象被销毁之前会执行的方法 释放资源
+  public abstract void destroy();
+  }  
+
+5、常用API
+   * HttpServletRequest 接口 请求对象
+     String getParameter(String paraName);
+        获取请求参数，如果paraName不存在，返回null
+     String[] getParameterValues(String paraName);
+        获取请求参数,获取多选框参数值
+     <input type="checkbox" name="likes" value="音乐">音乐   
+     <input type="checkbox" name="likes" value="体育">体育   
+     likes=音乐&likes=体育
+     
+     void setCharacterEncoding(String code),
+        设置请求对象使用的编码表，****只适合post请求
+        处理请求参数乱码问题
+     * 乱码原因：解码和编码采用的编码表不一致
+     * post请求 处理请求参数乱码
+       request.setCharacterEncoding("utf-8");
+     * get请求 处理请求参数乱码
+       String name = request.getParameter("name");
+            浏览器-----服务器（UTF-8码值）  
+       String str = new String(by,"ISO-8859-1");
+       request{str} 
+            如果是GET请求      
+       request.setCharacterEncoding("utf-8");
+       String name = request.getParameter("name");
+       
+     * 浏览器发送请求的操作
+       * 提交表单 （get/post,结论：post）
+       * 超链接
+         <a href="test.do?id=1001&name=张三">请求</a>
+       * 通过JS
+         <input type="button" value="请求"
+          onclick="doRequest()">
+         js:
+         function doRequest(){
+         	window.location.href="test.do?id=1001&name=张三";
+         }
+       * 直接浏览器地址栏
+          http://localhost:8080/day06_servlet2/regist.do?info=你好
+              如上所有操作，只有提交表单可以是post请求
+              其他所有请求都是get请求
+       
+    * HttpServletResponse 响应对象 
+      getWriter();获取字符输出流
+      setCharacterEncoding("utf-8");设置响应内容的编码格式
+      setContentType("text/html;charset=utf-8");
+          设置响应内容的文件类型，和编码格式
+
+  总结：
+  * 数据库版本注册
+  * Servlet生命周期 
+       加载实例、init()、service()、destroy();
+  * 设置servlet实例化，初始化时机
+    <load-on-startup>0/1/2
+  * 配置初始化参数，获取初始化参数
+    ServletConfig
+  * Servlet核心API
+    Servlet接口  GenericServlet HttpServlet
+  * Servlet相关API
+    HttpServletRequest
+    HttpServletResponse 
+  * 中文乱码处理（POST/GET请求，响应的中文处理） 
+  * 请求操作方式  
+
+
+
+
+
+
+             

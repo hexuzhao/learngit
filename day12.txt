@@ -1,0 +1,129 @@
+day12
+=============================
+1、JSON
+   JavaScript Object Notation 
+   
+   js中如何创建对象
+   * 使用JS构造器
+     function Person(id,name,age){
+     	this.id = id;
+     	this.name = name;
+     	this.age = age;
+     	this.study = pstudy;
+     	this.work = pwork;
+     }
+     function pstudy(){
+     	console.log("pstudy()");
+     }
+     function pwork(){
+     	console.log("pwork()");
+     }
+     var person = new Person(1001,'张三',20);
+     person.id;
+     person.study();
+     person.work();
+    
+    * 使用Object
+     var stu = new Object();
+     stu.study = function(){};
+     stu.play = function(){};
+    
+    * json 
+      javascript中定义对象的一种方式
+          也是js与其他计算机语言数据交换的最常用方式
+      var person 
+      = 
+      {id:1001,name:'张三',
+       age:20,
+       workFun:functioni(){
+       	 console.log("json对象中的函数");
+       }
+      };
+      var stu =
+      {id:1001,name:{firstName:"张",lastName:"三"}}
+      stu.name.firstName;
+      var users = [{id:101},{id:102},{id:103}];
+      
+      json是JS中一种数据轻量级封装方式
+          也是其他计算机语言最常用的与JS数据交换的格式
+      //java对象   
+      User user = new User(1001,"张三",20);
+          将user对象转换为XML,将xml内容以字符串的形式
+          发送给js，JS提供一组API，解析XML文件
+          
+      java对象如何发送到js中？
+      java对象拼接成一个json格式的字符串，将
+           字符串发送给js
+      
+      java与javascript数据交互可以采用json格式的字符串     
+      User user = new User(1001,"张三",20);
+      StringBuilder jsonStr = new StringBuilder();
+      jsonStr.append("{");
+      jsonStr.append("id:"+user.getId());
+      jsonStr.append(",");
+      jsonStr.append("name:'"+user.getName()+"'");
+      jsonStr.append(",");
+      jsonStr.append("age:"+user.getAge());
+      jsonStr.append("}");
+      out.print(jsonStr.toString());
+      
+2、AJAX处理服务器数据 
+3、jQuery对AJAX的支持   
+   get()发送get请求
+   post()发送post请求
+   ajax({});常用
+     url属性，请求路径
+     type属性，发送请求的方式
+     data属性，请求参数
+     dataType属性，服务器返回数据的类型
+     success属性，请求成功被处理回调函数
+     error属性，请求未成功被处理回调函数     
+   load()
+4、AJAX总结：
+   * XMLHttpRequest对象的使用（原生的ajax）
+	     属性：
+	       readyState,获取该对象状态（01234）
+	       status,获取服务器响应的状态码
+	       responseText,获取服务器响应的字符串
+	     函数：
+	       open("GET/POST","url",true),
+	       send();
+	     事件：onreadystatechange
+   * JSON
+      * js中创建对象一种方式
+        {"id":1001,"name":"张三"}
+        {"id":1001,"name":{"fname":"张","lname":"三"}}
+      	[{"id":1001,"name":"张三"},{"id":1002,"name":"李四"}]
+        json解析：处理对象
+        var jsonObj = {"id":1001,"name":"张三"};
+        jsonObj["id"]
+        jsonObj.id
+      * 数据交换的轻量级封装方式
+              其他计算机语言将数据转换到json格式的字符串
+   * jQuery对AJAX支持
+      * get()
+      * post()
+      * ajax():
+              传入一个json对象，作为函数的参数，该json\
+              对象中的属性有固定的含义
+              常用属性：type,url,data,dataType,success
+      * load()
+预告：状态管理（cookie,session）,过滤器&监听器   
+      
+     
+            
+      
+      
+      
+    
+     
+     
+   
+   
+   
+   
+       
+   
+   
+  
+  

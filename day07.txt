@@ -1,0 +1,126 @@
+day07
+=========================
+1、HttpServletResponse(续)
+   setCharacterEncoding();设置响应内容的编码
+   setContentType("text/html;charset=utf-8");
+     设置响应文件类型和内容的编码
+     响应页面
+   
+2、重定向
+     实现跳转
+     浏览器->Servlet->跳转新的页面
+   sendRedirect("web/500.html");   
+     完成登录需求的流程     
+     登录页面->Servlet->如果账号或密码错误，
+     跳转到login.html
+     登录页面->Servlet->如果正确
+     跳转到主页        
+   login.html,index.html,LoginServlet
+     浏览器->servlet,执行sendRedirect("web/500.html");
+     通知服务器，给浏览器发送302状态码，
+     同时发送一个location=web/500.html消息头
+     404
+     500
+     302 location=web/500.html
+     重定向特点：
+   * 重定向向服务器发送2次请求
+   * 重定向可以定向到任何存在的资源
+   * 重定向之后，
+         服务器会清空重定向之前request中的数据  
+   * 重定向之后，浏览器的地址栏发生变化   
+   
+3、ServletContext
+   Servlet上下文对象
+     一个项目对应一个ServletContext对象
+     容器启动会自动创建该对象， ServletContext对象被
+     对应项目中的所有Servlet共享  
+   * 获取该对象
+     servlet中，通过getServletContext()方法获取
+   * 保存对象
+     void setAttribute(String name,Object value); 
+   * 获取对象
+     Object getAttribute(String name); 
+   * String getRealPath(String path); 
+         项目中，某个路径所在服务器的真实路径   
+   小结：常用API:
+    HttpServletRequest
+    HttpServletResponse
+    ServletConfig
+    ServletContext 
+
+4、什么是JSP？   
+   Java Server Page
+   java语言开发的服务器端动态网页转换技术
+   Servlet/JSP规范
+   JSP就是一个Servlet   
+   helloWorld.jsp:
+      一个JSP文件以.jsp为扩展名的文件
+   JSP文件中可以直接编写HTML
+   JSP文件中使用<%%>编写java代码
+     疑问？java程序最基本单元类
+  
+	  JSP规范 
+	  JSP文件是如何运行的？
+	   浏览器->http://localhost:8080/day07_servlet02/helloWorld.jsp
+	   如果第一次访问:  
+	  tomcat中JSP引擎会将JSP文件转换到一个JAVA文件（类）
+	   将该类编译成一个class文件
+	  tomcat调用JSP的_jspService(request,response)方法
+
+5、JSP语法
+   HTML,JAVA,JSP语法（侧重于展现页面相关的语法）
+   * jsp中，HTML、CSS、JS直接写
+   * JSP中书写JAVA代码段
+     <% %>
+   * JSP中需要java与html结合
+     <%
+	  for(int i=0;i<200;i++){
+	 %>
+	 <div>ha ha ha!</div>
+	 <%}%>
+   * JSP的表达式  <%=%>
+   * JSP注释 
+       jsp注释：<%--  --%>
+       java注释：//  /**/  /** */
+       js注释：//   /**/
+       css注释：/**/
+       HTML注释：<!-- -->
+   * <%! %> JSP声明 可以声明变量，方法，类 没鸟用
+     <%! int i = 40; %>该变量i被定义在类中 是成员(全局)变量
+   
+6、JSP的指令语法（重点，必须掌握）
+   <%@指令名 属性1="值1" 属性2="值2"... %>
+      三种指令
+      * page指令  设置JSP页面的全局属性
+      * include指令  执行包含动作
+      * taglib执行    导入标签库
+      * page指令  设置JSP页面的全局属性 
+              通常JSP文件中的第一行
+	    contentType:设置响应的文件类型和内容编码
+        import:导包
+        language:代码段支持的语言 只支持java
+        pageEncoding:只是设置响应内容编码
+        * 修改eclipse JSP文件的默认编码
+          window->pre->jsp->jsp file 修改编码 
+  
+小结：
+  1、数据库版登录
+  2、重定向
+  3、ServletContext
+  4、JSP语法   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+           
+      
+      
+      
+      

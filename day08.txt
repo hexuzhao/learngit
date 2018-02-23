@@ -1,0 +1,133 @@
+day08
+=========================
+1、JSP语法(续)
+   HTML,JAVA,JSP语法（侧重于展现页面相关的语法）
+   * jsp中，HTML、CSS、JS直接写
+   * JSP中书写JAVA代码段
+     <% %>
+   * JSP中需要java与html结合
+     <%
+	  for(int i=0;i<200;i++){
+	 %>
+	 <div>ha ha ha!</div>
+	 <%}%>
+   * JSP的表达式  <%=%>
+   * JSP注释 
+       jsp注释：<%--  --%>
+       java注释：//  /**/  /** */
+       js注释：//   /**/
+       css注释：/**/
+       HTML注释：<!-- -->
+   * <%! %> JSP声明 可以声明变量，方法，类 没鸟用
+     <%! int i = 40; %>该变量i被定义在类中 是成员(全局)变量
+   
+2、JSP的指令语法（重点，必须掌握）
+   <%@指令名 属性1="值1" 属性2="值2"... %>
+      三种指令
+      * page指令  设置JSP页面的全局属性
+      * include指令  执行包含动作
+      * taglib执行    导入标签库
+      
+      * page指令  设置JSP页面的全局属性 
+              通常JSP文件中的第一行
+	    contentType:设置响应的文件类型和内容编码
+        import:导包
+        language:代码段支持的语言 只支持java
+        pageEncoding:只是设置响应内容编码
+        * 修改eclipse JSP文件的默认编码
+          window->pre->jsp->jsp file 修改编码 
+        errorPage:指定错误处理页面
+        isErrorPage:指定当前页面是否是错误处理页面  
+          
+      * include指令  执行包含动作
+        <%@ include file="" %>
+              特点：当前页与被包含页直接生成一个servlet
+              文件，静态的结合在一起，形成一个页面
+              静态包含
+              包含有中文的HTML会出现乱码现象
+      * taglib执行    导入标签库（明天讲）
+     
+3、JSP的内置对象(9个)
+   JSP为了简化开发，提供一组已经定义好的对象
+     这组对象在JSP中可以直接使用
+   out             JspWriter
+   request         HttpServletRequest
+   response        HttpServletResponse
+   session(以后讲) HttpSession
+   application     ServletContext
+   config          ServletConfig 
+   		jsp的配置信息 获取初始化参数      
+   pageContext     PageContext 
+	     可以获取其他内置对象 
+	   pageContext.getOut();
+	   pageContext.getRequest();
+	   ....
+	     保存属性
+	   void setAttribute(String name,Object obj);
+	   Object getAttribute(String name);
+   exception       Exception 异常对象
+	   9个内置对象中使用最特殊
+	   jsp的page指令中必须添加isErrorPage="true"
+	     此时，jsp中才可以使用该内置对象
+   page            Object   
+   
+   Servlet:逻辑处理  流程处理  页面
+   JSP:逻辑处理  流程处理  页面 
+   
+   JSP:展现页面
+   Servlet:
+     接收请求，请求参数 
+     处理请求
+   (调用业务处理代码 调用DAO)
+     响应结果，跳转页面    
+     
+     点击购物车链接->Servlet->Dao 得到list 
+   JSP中显示购物车中商品信息 
+   
+   index.jsp->FindCartItemServlet(Dao、Entity) 
+   cartItemList.jsp 
+   
+4、 请求转发
+      可以实现页面的跳转，同时servlet与jsp数据交换的
+      最常用方式
+   Servlet与JSP交互
+     实现：
+     * 获取一个转发器
+       RequestDispatcher,转发器对象
+       rquest.getRequestDispatcher("list.jsp");
+     * 调用forward()方法
+   index.jsp->findAll.do->list.jsp
+   findAll.do转发到list.jsp 
+     通常转发之前需要绑定数据到request对象  
+   request.setAttribute("",obj);
+   jsp中
+   request.getAttribute("");
+     原理：当tomcat执行
+        dis.forward(request, response)，
+              继续调用list.jsp的service()方法
+    请求转发特点：（服务器内部跳转）
+     * 转发向服务器发送1次请求
+     * 转发只能转发到同一个项目中的其他资源
+     * 转发期间，参与的servlet,jsp
+            共享一个request，response对象
+     * 转发之后，浏览器地址栏不变
+   
+     重定向特点：（客户端跳转）
+   * 重定向向服务器发送2次请求
+   * 重定向可以定向到任何存在的资源
+   * 重定向之后，
+         服务器会清空重定向之前request中的数据  
+   * 重定向之后，浏览器的地址栏发生变化
+
+5、实现学子商城购物车功能
+
+总结：
+  JSP语法
+    转发
+    学子商城购物车   
+   
+           
+      
+      
+      
+      
